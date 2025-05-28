@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clothing Store</title>
+    <style>
+   *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+   }
+
+   body{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f2f7fd;
+    color: #333;
+   }
+
+   header{
+    background-color: #0077cc;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+   }
+
+   h2{
+    text-align: center;
+    margin: 30px 0 10px;
+   }
+
+   h3{
+    text-align: center;
+    margin: 20px 0;
+    color: #444;
+   }
+
+   .product-section{
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    }
+
+    .product-list{
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        flex-wrap: wrap;
+    }
+
+    .product{
+        background-color: white;
+        padding: 15px;
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        text-align: center;
+        transition: transform 0.2s;
+        width: 200px;
+    }
+    .product:hover {
+            transform: translateY(-5px);
+        }
+
+    .product img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .product button {
+            background-color: #0077cc;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .product button:hover {
+            background-color: #005fa3;
+        }
+
+        @media (max-width: 768px) {
+            .product-list {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+</style>
+</head>
+<body>
+    <header>
+        <h1>Welcome User</h1>
+        <h2>Our Products</h2>
+    </header>
+    <div class="product-section">
+        <h3>T-Shirts</h3>
+        <div class="product-list">
+            <div class="product" data-name="T-Shirt 1" data-price="499">
+                <img src="ts1.webp" alt="T-shirt 1">
+                <p>Price: ₹499</p>
+                <button onclick="addToCart(this)">Add to Cart</button>
+            </div>
+            <div class="product" data-name="T-Shirt 2" data-price="599">
+                <img src="ts2.jpg" alt="T-shirt 2">
+                <p>Price: ₹599</p>
+                <button onclick="addToCart(this)">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="product-section">
+        <h3>Shirts</h3>
+        <div class="product-list">
+            <div class="product" data-name="Shirt 1" data-price="799">
+                <img src="st1.jpg" alt="Shirt 1">
+                <p>Price: ₹799</p>
+                <button onclick="addToCart(this)">Add to Cart</button>
+            </div>
+            <div class="product" data-name="Shirt 2" data-price="899">
+                <img src="st2.jpg" alt="Shirt 2">
+                <p>Price: ₹899</p>
+                <button onclick="addToCart(this)">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="product-section">
+        <h3>Shoes</h3>
+        <div class="product-list">
+            <div class="product" data-name="Shoes 1" data-price="1499">
+                <img src="s1.avif" alt="Shoes 1">
+                <p>Price: ₹1499</p>
+                <button onclick="addToCart(this)">Add to Cart</button>
+            </div>
+            <div class="product" data-name="Shoes 2" data-price="1999">
+                <img src="s2.jpg" alt="Shoes 2">
+                <p>Price: ₹1999</p>
+                <button onclick="addToCart(this)">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+
+    <div style="text-align: center; margin: 20px;">
+        <button onclick="goToCart()" style="padding: 10px 20px;">Go to Cart</button>
+    </div>
+
+    <script>
+        function addToCart(button) {
+            const product = button.parentElement;
+            const name = product.getAttribute("data-name");
+            const price = parseInt(product.getAttribute("data-price"));
+
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+            cart.push({ name, price });
+            localStorage.setItem("cart", JSON.stringify(cart));
+            alert(`${name} added to cart!`);
+        }
+
+        function goToCart() {
+            window.location.href = "payment.html";
+        }
+    </script>
+</body>
+</html>

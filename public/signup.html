@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+</head>
+<style>
+    body{
+        font-family: cursive;
+        background-color: rgb(134, 14, 14);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+    }
+
+    h1{
+        color: white;
+        margin-bottom: 20px;
+    }
+
+    form{
+        background-color: white;
+        padding: 30px;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 300px;
+    }
+
+    label{
+        font-size: 20px;
+        margin-bottom: 5px;
+    }
+
+    input[type=text],
+    input[type=password]{
+        padding: 10px;
+        border: 2px solid black;
+        border-radius: 10px;
+        font-size: 14px;
+    }
+
+    button{
+        padding: 10px;
+        background-color: rgb(160, 20, 65);
+        color: white;
+        font-size: 20px;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+</style>
+<body>
+    <h1>Signup here!</h1>
+
+    <form id="signupForm">
+
+        <label for="fullname">Enter fullname</label>
+        <input type="text" id="fullname" name="fullname" required>
+
+        <label for="email">Enter email</label>
+        <input type="text" id="email" name="email" required>
+
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required>
+
+        <label for="confirmPassword">Confirm password</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" required>
+
+        <div id="error"></div>
+
+        <button type="submit">Sign up</button>
+        <div id="signin-link">already have an account? <a href="signin.html">Signin</a></div>
+    </form>
+
+    <script>
+    const form = document.getElementById('signupForm');
+    const password = document.getElementById('password');
+    const confirmPassword = document.getElementById('confirmPassword');
+    const errorDiv = document.getElementById('error');
+
+    form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        const fullname = document.getElementById('fullname').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const pwd = password.value.trim();
+
+        if (pwd !== confirmPassword.value.trim()) {
+            errorDiv.textContent = "Passwords do not match";
+            return;
+        }
+
+        try {
+            const res = await fetch('http://localhost:5000/api/users/signup', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ fullname, email, password: pwd })
+            });
+
+            const data = await res.json();
+
+            if (res.ok) {
+                alert("Signup successful! Please sign in.");
+                window.location.href = "signin.html";
+            } else {
+                errorDiv.textContent = data.error || "Signup failed";
+            }
+        } catch (err) {
+            errorDiv.textContent = "Server error";
+        }
+    });
+</script>
+
+</body>
+</html>
