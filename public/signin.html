@@ -107,7 +107,7 @@
             const data = await res.json();
 
             if (res.ok) {
-                localStorage.setItem("userEmail", email); // store for later use in orders
+                localStorage.setItem("userEmail", email); 
                 alert("Sign-in successful!");
                 window.location.href = "cart.html";
             } else {
